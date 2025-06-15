@@ -15,8 +15,8 @@ const Index = () => {
   const product = {
     id: 1,
     name: "Premium Leather Crossbody Bag",
-    price: 89.99,
-    originalPrice: 119.99,
+    price: 11699,
+    originalPrice: 15599,
     rating: 4.8,
     reviews: 124,
     description: "Crafted from genuine leather, this versatile crossbody bag combines style and functionality. Perfect for daily use with its spacious interior and adjustable strap.",
@@ -40,24 +40,24 @@ const Index = () => {
     {
       id: 2,
       name: "Cotton Casual Shirt",
-      price: 34.99,
-      originalPrice: 49.99,
+      price: 4549,
+      originalPrice: 6499,
       image: "/placeholder.svg?height=300&width=300",
       rating: 4.6
     },
     {
       id: 3,
       name: "Canvas Backpack",
-      price: 54.99,
-      originalPrice: 74.99,
+      price: 7149,
+      originalPrice: 9749,
       image: "/placeholder.svg?height=300&width=300",
       rating: 4.7
     },
     {
       id: 4,
       name: "Denim Jacket",
-      price: 79.99,
-      originalPrice: 99.99,
+      price: 10399,
+      originalPrice: 12999,
       image: "/placeholder.svg?height=300&width=300",
       rating: 4.5
     }
@@ -139,8 +139,8 @@ const Index = () => {
                 </div>
               </div>
               <div className="flex items-center gap-4 mb-6">
-                <span className="text-3xl font-bold text-primary">${product.price}</span>
-                <span className="text-xl text-muted-foreground line-through">${product.originalPrice}</span>
+                <span className="text-3xl font-bold text-primary">KES {product.price.toLocaleString()}</span>
+                <span className="text-xl text-muted-foreground line-through">KES {product.originalPrice.toLocaleString()}</span>
                 <Badge variant="destructive">25% OFF</Badge>
               </div>
             </div>
@@ -239,7 +239,7 @@ const Index = () => {
             <div className="border rounded-lg p-4 space-y-3">
               <div className="flex items-center gap-3">
                 <Truck className="h-5 w-5 text-green-600" />
-                <span className="text-sm">Free shipping on orders over $50</span>
+                <span className="text-sm">Free shipping on orders over KES 6,500</span>
               </div>
               <div className="flex items-center gap-3">
                 <RotateCcw className="h-5 w-5 text-blue-600" />
@@ -278,8 +278,8 @@ const Index = () => {
                       </div>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="font-bold text-primary">${item.price}</span>
-                      <span className="text-sm text-muted-foreground line-through">${item.originalPrice}</span>
+                      <span className="font-bold text-primary">KES {item.price.toLocaleString()}</span>
+                      <span className="text-sm text-muted-foreground line-through">KES {item.originalPrice.toLocaleString()}</span>
                     </div>
                   </div>
                 </CardContent>
