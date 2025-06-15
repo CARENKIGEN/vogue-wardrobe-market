@@ -4,13 +4,19 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { ShoppingCart, Heart, Star, Truck, Shield, RotateCcw } from "lucide-react";
 import { toast } from "sonner";
+import { ProductGallery } from "@/components/ProductGallery";
+import { CartDrawer } from "@/components/CartDrawer";
+import { ProductReviews } from "@/components/ProductReviews";
 
 const Index = () => {
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedColor, setSelectedColor] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [cartItems, setCartItems] = useState<any[]>([]);
+  const [isCartOpen, setIsCartOpen] = useState(false);
 
   const product = {
     id: 1,
@@ -30,9 +36,9 @@ const Index = () => {
     colors: ["Black", "Brown", "Tan"],
     sizes: ["Small", "Medium", "Large"],
     images: [
-      "/placeholder.svg?height=400&width=400",
-      "/placeholder.svg?height=400&width=400",
-      "/placeholder.svg?height=400&width=400"
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=400&h=400&fit=crop",
+      "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=400&fit=crop"
     ]
   };
 
@@ -42,7 +48,7 @@ const Index = () => {
       name: "Cotton Casual Shirt",
       price: 4549,
       originalPrice: 6499,
-      image: "/placeholder.svg?height=300&width=300",
+      image: "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=300&h=300&fit=crop",
       rating: 4.6,
       discount: "30% OFF"
     },
@@ -51,7 +57,7 @@ const Index = () => {
       name: "Canvas Backpack",
       price: 7149,
       originalPrice: 9749,
-      image: "/placeholder.svg?height=300&width=300",
+      image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=300&h=300&fit=crop",
       rating: 4.7,
       discount: "27% OFF"
     },
@@ -60,7 +66,7 @@ const Index = () => {
       name: "Denim Jacket",
       price: 10399,
       originalPrice: 12999,
-      image: "/placeholder.svg?height=300&width=300",
+      image: "https://images.unsplash.com/photo-1544022613-e87ca75a784a?w=300&h=300&fit=crop",
       rating: 4.5,
       discount: "20% OFF"
     },
@@ -69,7 +75,7 @@ const Index = () => {
       name: "Silk Blouse",
       price: 8299,
       originalPrice: 11999,
-      image: "/placeholder.svg?height=300&width=300",
+      image: "https://images.unsplash.com/photo-1485462537746-965f33f7f6a7?w=300&h=300&fit=crop",
       rating: 4.9,
       discount: "31% OFF"
     },
@@ -78,7 +84,7 @@ const Index = () => {
       name: "Leather Tote Bag",
       price: 13499,
       originalPrice: 17999,
-      image: "/placeholder.svg?height=300&width=300",
+      image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=300&fit=crop",
       rating: 4.8,
       discount: "25% OFF"
     },
@@ -87,7 +93,7 @@ const Index = () => {
       name: "Knit Sweater",
       price: 6799,
       originalPrice: 9499,
-      image: "/placeholder.svg?height=300&width=300",
+      image: "https://images.unsplash.com/photo-1434389677669-e08b4cac3105?w=300&h=300&fit=crop",
       rating: 4.6,
       discount: "28% OFF"
     },
@@ -96,7 +102,7 @@ const Index = () => {
       name: "Designer Clutch",
       price: 5899,
       originalPrice: 7999,
-      image: "/placeholder.svg?height=300&width=300",
+      image: "https://images.unsplash.com/photo-1584917865442-de89df76afd3?w=300&h=300&fit=crop",
       rating: 4.7,
       discount: "26% OFF"
     },
@@ -105,7 +111,7 @@ const Index = () => {
       name: "Maxi Dress",
       price: 9299,
       originalPrice: 12499,
-      image: "/placeholder.svg?height=300&width=300",
+      image: "https://images.unsplash.com/photo-1515372039744-b8f02a3ae446?w=300&h=300&fit=crop",
       rating: 4.8,
       discount: "26% OFF"
     }
@@ -116,6 +122,16 @@ const Index = () => {
       toast.error("Please select size and color");
       return;
     }
+    
+    const cartItem = {
+      ...product,
+      selectedSize,
+      selectedColor,
+      quantity,
+      cartId: Date.now()
+    };
+    
+    setCartItems(prev => [...prev, cartItem]);
     toast.success("Added to cart!");
   };
 
@@ -134,8 +150,18 @@ const Index = () => {
               <Button variant="ghost" size="icon" className="hover:bg-pink-50 hover:text-pink-600">
                 <Heart className="h-5 w-5" />
               </Button>
-              <Button variant="ghost" size="icon" className="hover:bg-pink-50 hover:text-pink-600">
+              <Button 
+                variant="ghost" 
+                size="icon" 
+                className="hover:bg-pink-50 hover:text-pink-600 relative"
+                onClick={() => setIsCartOpen(true)}
+              >
                 <ShoppingCart className="h-5 w-5" />
+                {cartItems.length > 0 && (
+                  <Badge className="absolute -top-2 -right-2 h-5 w-5 p-0 flex items-center justify-center bg-pink-600">
+                    {cartItems.length}
+                  </Badge>
+                )}
               </Button>
             </div>
           </div>
@@ -150,27 +176,8 @@ const Index = () => {
 
         {/* Product Section */}
         <div className="grid lg:grid-cols-2 gap-12 mb-16">
-          {/* Product Images */}
-          <div className="space-y-4">
-            <div className="aspect-square bg-pink-50 rounded-lg overflow-hidden border border-pink-100">
-              <img
-                src={product.images[0]}
-                alt={product.name}
-                className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-              />
-            </div>
-            <div className="grid grid-cols-3 gap-4">
-              {product.images.slice(1).map((image, index) => (
-                <div key={index} className="aspect-square bg-pink-50 rounded-lg overflow-hidden cursor-pointer border border-pink-100">
-                  <img
-                    src={image}
-                    alt={`${product.name} ${index + 2}`}
-                    className="w-full h-full object-cover hover:opacity-80 transition-opacity"
-                  />
-                </div>
-              ))}
-            </div>
-          </div>
+          {/* Product Gallery */}
+          <ProductGallery images={product.images} productName={product.name} />
 
           {/* Product Details */}
           <div className="space-y-6">
@@ -304,6 +311,40 @@ const Index = () => {
           </div>
         </div>
 
+        {/* Product Details and Reviews Tabs */}
+        <div className="mb-16">
+          <Tabs defaultValue="details" className="w-full">
+            <TabsList className="grid w-full grid-cols-2">
+              <TabsTrigger value="details">Product Details</TabsTrigger>
+              <TabsTrigger value="reviews">Reviews ({product.reviews})</TabsTrigger>
+            </TabsList>
+            <TabsContent value="details" className="mt-6">
+              <Card>
+                <CardHeader>
+                  <CardTitle>Product Information</CardTitle>
+                </CardHeader>
+                <CardContent className="space-y-4">
+                  <div>
+                    <h4 className="font-semibold text-gray-800 mb-2">Material & Care</h4>
+                    <p className="text-gray-600">Made from premium genuine leather. Clean with a soft, dry cloth. Store in dust bag when not in use.</p>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-800 mb-2">Dimensions</h4>
+                    <ul className="text-gray-600 space-y-1">
+                      <li>Small: 8" W x 6" H x 2" D</li>
+                      <li>Medium: 10" W x 7" H x 3" D</li>
+                      <li>Large: 12" W x 8" H x 4" D</li>
+                    </ul>
+                  </div>
+                </CardContent>
+              </Card>
+            </TabsContent>
+            <TabsContent value="reviews" className="mt-6">
+              <ProductReviews />
+            </TabsContent>
+          </Tabs>
+        </div>
+
         {/* Related Products */}
         <section>
           <h2 className="text-2xl font-bold mb-8 text-gray-800">You Might Also Like</h2>
@@ -342,6 +383,14 @@ const Index = () => {
           </div>
         </section>
       </div>
+
+      {/* Cart Drawer */}
+      <CartDrawer 
+        isOpen={isCartOpen} 
+        onClose={() => setIsCartOpen(false)} 
+        cartItems={cartItems}
+        setCartItems={setCartItems}
+      />
 
       {/* Footer */}
       <footer className="bg-white border-t border-pink-100 mt-16">
