@@ -81,7 +81,7 @@ const Index = () => {
       <header className="border-b bg-white sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-bold">StyleHub</h1>
+            <h1 className="text-2xl font-bold">Saraphina Lux</h1>
             <div className="flex items-center gap-4">
               <Button variant="ghost" size="icon">
                 <Heart className="h-5 w-5" />
@@ -293,7 +293,7 @@ const Index = () => {
       <footer className="bg-gray-50 border-t mt-16">
         <div className="container mx-auto px-4 py-8">
           <div className="text-center text-muted-foreground">
-            <p>&copy; 2024 StyleHub. All rights reserved.</p>
+            <p>&copy; 2024 Saraphina Lux. All rights reserved.</p>
           </div>
         </div>
       </footer>
